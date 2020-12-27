@@ -36,7 +36,7 @@ class HttpMethod(AutoNameEnum):
     DELETE = enum.auto()
 
 
-class BaseApi:
+class BaseAPI:
     """Base class for serving different APIs."""
 
     class Error(BaseException):

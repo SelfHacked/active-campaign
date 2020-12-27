@@ -1,8 +1,8 @@
-""" Generic abstract Resource class for ActiveCampaign """
+"""Resource class for ActiveCampaign"""
 
 import abc
 import typing
-from ..apis.active_campaign_api import ActiveCampaignAPI
+from .active_campaign_api import ActiveCampaignAPI
 
 
 class Resource(abc.ABC):

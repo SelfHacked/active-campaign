@@ -2,7 +2,7 @@
 
 import typing
 from django.http import Http404
-from ..utils.resource import Resource
+from ..base_resource import Resource
 
 
 class Tag(Resource):

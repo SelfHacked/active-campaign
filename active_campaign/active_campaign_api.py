@@ -1,11 +1,11 @@
-"""Contains active campaign integrations."""
+"""Contains ActiceCampaignAPI class"""
 
 import json
 import urllib
 import typing
 
 from django.conf import settings
-from ..utils.api import BaseApi, HttpMethod
+from .base_api import BaseAPI, HttpMethod
 
 
 def require_setting(name: str) -> typing.Any:
@@ -22,7 +22,7 @@ def require_setting(name: str) -> typing.Any:
     return value
 
 
-class ActiveCampaignAPI(BaseApi):
+class ActiveCampaignAPI(BaseAPI):
     """Handle marketing campaign tools."""
 
     def __init__(self) -> None:

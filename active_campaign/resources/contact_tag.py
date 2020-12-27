@@ -1,7 +1,7 @@
 """ ContactTag resource for ActiveCampaign """
 
 import typing
-from ..utils.resource import Resource
+from ..base_resource import Resource
 
 
 class ContactTag(Resource):
