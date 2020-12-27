@@ -6,8 +6,9 @@ from ..utils.resource import Resource
 
 class ContactList(Resource):
     """
-    List contact pair. Subscribe a contact to a list or
-    unsubscribe a contact from a list.
+    List contact pair in ActiveCampaign. Allows to:
+     - Subscribe a contact to a list
+     - Unsubscribe a contact from a list.
 
     Check docs in:
     https://developers.activecampaign.com/reference#update-list-status-for-contact

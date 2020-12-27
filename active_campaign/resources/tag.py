@@ -1,17 +1,25 @@
-""" something """
+""" Tag resource for ActiveCampaign """
 
 import typing
-from .active-campaign-resources import Resource
+from django.http import Http404
+from ..utils.resource import Resource
 
 
 class Tag(Resource):
-    """Represents AC Tags."""
+    """A tag in ActiveCampaign. Allows to:
+    - Create a tag
+    - Udate a tag
+    - Remove a tag
+
+    Check docs in:
+    https://developers.activecampaign.com/reference#tags
+    """
 
     def __init__(
             self,
             tag: str,
             tag_type: str,
-            description: Optional[str] = '',
+            description: typing.Optional[str] = '',
             **kwargs,
     ) -> None:
         """Initialize the tag.

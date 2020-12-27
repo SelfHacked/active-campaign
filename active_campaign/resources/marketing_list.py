@@ -1,7 +1,8 @@
 """ something """
 
 import typing
-from .active-campaign-resources import Resource
+from django.http import Http404
+from ..utils.resource import Resource
 
 
 class MarketingList(Resource):
@@ -15,7 +16,18 @@ class MarketingList(Resource):
             sender_reminder: str,
             **kwargs: typing.Dict,
     ) -> None:
-        """Initialize marketing list."""
+        """Initialize the marketing list.
+
+        Args:
+            name: Name of the list to create
+
+            stringid: URL-safe list name. Example: 'list-name-sample'
+
+            sender_url: The website URL this list is for.
+
+            sender_reminder: A reminder for your contacts as to why
+            they are on this list and you are messaging them.
+        """
         super().__init__(**kwargs)
         self.name = name
         self.stringid = stringid

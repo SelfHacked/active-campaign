@@ -1,11 +1,20 @@
-
-""" something """
+""" Contact resource for ActiveCampaign """
 
 import typing
-from .active-campaign-resources import Resource
+from django.http import Http404
+from ..utils.resource import Resource
+
 
 class Contact(Resource):
-    """An ActiveCampaign contact."""
+    """
+    An ActiveCampaign contact. Allows to:
+     - Create a contact
+     - Update a contact
+     - Delete a contact
+
+    Check docs in:
+    https://developers.activecampaign.com/reference#contact
+    """
 
     def __init__(self, email: str, **kwargs: typing.Dict) -> None:
         """Initialize contact."""

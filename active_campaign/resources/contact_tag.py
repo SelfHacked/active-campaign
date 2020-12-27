@@ -6,8 +6,9 @@ from ..utils.resource import Resource
 
 class ContactTag(Resource):
     """
-    Tag for a contact. Add a tag to contact or
-    remove a tag from a contact.
+    Tag for a contact in ActiveCampaign. Allows to:
+     - Add a tag to contact
+     - Remove a tag from a contact.
 
     Check docs in:
     https://developers.activecampaign.com/reference#contact-tags
