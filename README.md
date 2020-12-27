@@ -1,3 +1,3 @@
 # Active Campaign
 
-This package contains integrations with ActiveCampaing for SelfDecode
+This package contains integrations with ActiveCampaign for SelfDecode
