@@ -86,6 +86,7 @@ class Resource(abc.ABC):
             cls.resource_name(),
             filters,
         )
+
         for data in data_list:
             resource_data = cls._to_attribute_dict(data)
             resource = cls(**resource_data)
