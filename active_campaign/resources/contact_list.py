@@ -1,5 +1,4 @@
-""" ContactList Resource """
-
+""" ContactList resource for ActiveCampaign """
 
 import typing
 from ..utils.resource import Resource
