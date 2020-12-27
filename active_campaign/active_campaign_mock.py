@@ -18,6 +18,7 @@ def mock_active_campaign(requests_mock) -> typing.Callable:  # noqa
     Currently only api calls used by patient app.
     Documentation: https://developers.activecampaign.com/reference
     """
+
     def _mock_active_campaign() -> None:  # noqa
         root_url = 'https://selfhacked.api-us1.com/api/3'
 

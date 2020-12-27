@@ -135,10 +135,10 @@ class Resource(abc.ABC):
             self._update()
 
     def serialize_data(self) -> dict:
-        """Create an API payload from recource attributes.
+        """Create an API payload from resource attributes.
 
         Returns:
-            A dict containing at
+            A dict containing the serialized data
         """
         field_attribute_map = self.map_field_name_to_attribute()
         return {
