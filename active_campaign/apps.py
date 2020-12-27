@@ -1,3 +1,4 @@
+"""ActiveCampaign App"""
 from django.apps import AppConfig
 
 
