@@ -19,6 +19,21 @@ from active_campaign import Contact, ContactList, ContactTag, Tag, MarketingList
 ```
 ## Contact
 
+#### Create or get
+
+```
+contact = Contact(email)
+try:
+    contact.save()
+except Exception:
+    pass
+```
+#### Find by email
+
+```
+contact = Contact.find(email)
+```
+
 ## Tag
 
 #### Find by name
@@ -46,10 +61,15 @@ marketing_list = MarketingList.find('SD: Marketing List')
 
 ## ContactTag
 
+#### Attach tag to contact
+
+```
+ContactTag(tag.id, contact.id).save()
+```
+
 ## ContactList
 
-#### Subscribe contact to list
-
+#### Subscribe/Unsubscribe contact to list
 ```
 status = 1 #    1 to subscribe, 2 to unsubscribe
 ContactList(marketing_list.id, contact.id, status).save()
