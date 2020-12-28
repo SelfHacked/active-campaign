@@ -66,9 +66,13 @@ def mock_active_campaign(requests_mock) -> typing.Callable:  # noqa
             else:
                 contact_id = '1'
             recieved_email = req_json_value(request, 'contact.email')
-            return {'contact': {
+
+            return {
+                'contact': {
                     'email': recieved_email,
-                    'id': contact_id}}
+                    'id': contact_id
+                }
+            }
 
         requests_mock.post(
             f'{root_url}/contacts',
@@ -88,13 +92,14 @@ def mock_active_campaign(requests_mock) -> typing.Callable:  # noqa
             search_query = (query_dict['search'][0]
                             if 'search' in query_dict
                             else 'example tag')
-            return {'tags': [
-                    {'tagType': 'contact',
-                     'tag': search_query,
-                     'description': ''},
-                    ],
-                    'meta': {'total': 1},
-                    }
+            return {
+                'tags': [{
+                    'tagType': 'contact',
+                    'tag': search_query,
+                    'description': ''
+                }],
+                'meta': {'total': 1},
+            }
 
         # without query params so as to match everything
         requests_mock.get(
@@ -106,20 +111,25 @@ def mock_active_campaign(requests_mock) -> typing.Callable:  # noqa
             parsed_url = urlparse(request.url)
             query_dict = parse_qs(parsed_url.query) \
                 if isinstance(parsed_url.query, str) else {}
+
             name_query = (query_dict['filters[name]'][0]
                           if 'filters[name]' in query_dict
                           else 'example list')
             list_id = (ActiveCampaignAPI.LISTS[name_query]
                        if name_query in ActiveCampaignAPI.LISTS
                        else 1)
-            return {'lists': [
-                    {'string': 'contact',
-                     'name': name_query,
-                     'stringid': name_query.replace(' ', '-').lower(),
-                     'sender_url': 'http://example.com/',
-                     'sender_reminder': 'You signed up for my mailing list.',
-                     'id': list_id}],
-                    'meta': {'total': 1}}
+
+            return {
+                'lists': [{
+                    'string': 'contact',
+                    'name': name_query,
+                    'stringid': name_query.replace(' ', '-').lower(),
+                    'sender_url': 'http://example.com/',
+                    'sender_reminder': 'You signed up for my mailing list.',
+                    'id': list_id
+                }],
+                'meta': {'total': 1}
+            }
 
         # without query params so as to match everything
         requests_mock.get(
@@ -131,6 +141,7 @@ def mock_active_campaign(requests_mock) -> typing.Callable:  # noqa
             list_id = req_json_value(request, 'contactList.list')
             contact_id = req_json_value(request, 'contactList.contact')
             status = req_json_value(request, 'contactList.status')
+
             return {
                 'contacts': [{
                     'id': contact_id
@@ -151,6 +162,7 @@ def mock_active_campaign(requests_mock) -> typing.Callable:  # noqa
                                         context: typing.Callable) -> dict:
             contact_id = req_json_value(request, 'contactTag.contact')
             tag_id = req_json_value(request, 'contactTag.tag')
+
             return {
                 'contactTag': {
                     'id': 1,
