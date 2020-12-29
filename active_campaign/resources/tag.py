@@ -8,6 +8,7 @@ from ..base_resource import Resource
 class Tag(Resource):
     """A tag in ActiveCampaign. Allows to:
     - Create a tag
+    - Find a tag by name
     - Udate a tag
     - Remove a tag
 

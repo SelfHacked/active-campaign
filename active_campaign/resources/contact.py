@@ -9,6 +9,7 @@ class Contact(Resource):
     """
     An ActiveCampaign contact. Allows to:
      - Create a contact
+     - Find a contact by email
      - Update a contact
      - Delete a contact
 
