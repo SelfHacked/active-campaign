@@ -9,5 +9,4 @@ setuptools.setup(
     packages=["active_campaign"],
     long_description=long_description,
     long_description_content_type="text/markdown",
-
 )
