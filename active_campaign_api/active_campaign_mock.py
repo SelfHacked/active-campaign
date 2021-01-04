@@ -5,6 +5,7 @@ import json
 import typing
 import pytest
 import requests
+import requests_mock
 
 from pathlib import PurePosixPath
 from urllib.parse import urlparse, parse_qs, unquote
