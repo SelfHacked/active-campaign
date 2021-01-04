@@ -8,4 +8,3 @@ typing
 pathlib
 requests
 requests-mock
-
