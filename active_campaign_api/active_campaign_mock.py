@@ -5,7 +5,6 @@ import json
 import typing
 import pytest
 import requests
-import requests_mock as requests_mock_lib
 
 from pathlib import PurePosixPath
 from urllib.parse import urlparse, parse_qs, unquote
@@ -13,13 +12,12 @@ from .active_campaign_api import ActiveCampaignAPI
 
 
 @pytest.fixture()
-def mock_active_campaign() -> typing.Callable:  # noqa
+def mock_active_campaign(requests_mock) -> typing.Callable:  # noqa
     """Mock ActiveCampaign api calls.
 
     Currently only api calls used by patient app.
     Documentation: https://developers.activecampaign.com/reference
     """
-    requests_mock = requests_mock_lib.Mocker()
 
     def _mock_active_campaign() -> None:  # noqa
         root_url = 'https://selfhacked.api-us1.com/api/3'
