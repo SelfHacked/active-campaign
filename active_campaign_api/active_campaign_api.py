@@ -27,10 +27,12 @@ class ActiveCampaignAPI(BaseAPI):
 
     def __init__(self) -> None:
         """Initialize active campaign."""
-        super().__init__('https://selfhacked.api-us1.com/api/3')
+        MARKETING_CAMPAIGN_KEY = require_setting('MARKETING_CAMPAIGN_KEY')
+        MARKETING_CAMPAIGN_URL = require_setting('MARKETING_CAMPAIGN_URL')
 
+        super().__init__(MARKETING_CAMPAIGN_URL)
         self.session.headers.update({
-            'Api-Token': require_setting('MARKETING_CAMPAIGN_KEY'),
+            'Api-Token': MARKETING_CAMPAIGN_KEY,
         })
 
     # A mapping (from name to id) for lists in ActiveCampaign
