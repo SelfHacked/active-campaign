@@ -50,12 +50,10 @@ class ActiveCampaignAPI(BaseAPI):
             nested_resource_name: typing.Optional[str] = None,
             query_params: typing.Optional[dict] = None,
     ) -> typing.Generator[dict, None, None]:
-        """
-        List all the recources of the given name.
+        """List all the recources of the given name.
         If resource_id and nested_resource_name are passed,
         it lists all the nested_resources of the given name,
         that belong to the resource_name with given resource_id
-
         Args:
             resource_name: str
                 The name of the resource to fetch
@@ -65,7 +63,6 @@ class ActiveCampaignAPI(BaseAPI):
                 The name of the nested resource to fetch
             query_params: typing.Optional[dict]
                 the key value pairs for the query params.
-
         Yields:
             A single resource from the server.
         """
@@ -101,11 +98,9 @@ class ActiveCampaignAPI(BaseAPI):
             resource_id: typing.Optional[int],
     ) -> dict:
         """Get details of the given resource.
-
         Args:
             resource_name: Name of the resource.
             resource_id: The id of the object.
-
         Returns:
             The given resource.
         """
@@ -116,11 +111,9 @@ class ActiveCampaignAPI(BaseAPI):
 
     def create_resource(self, resource_name: str, data: dict) -> dict:
         """Create a resource with the given data.
-
         Args:
             resource_name: The name of the resource
             data: The data to create the resource with.
-
         Returns:
             The newly created resource.
         """
@@ -144,12 +137,10 @@ class ActiveCampaignAPI(BaseAPI):
             data: dict,
     ) -> dict:
         """Update the given resource with the given data.
-
         Args:
             resource_name: The name of the recource to update
             resource_id: The id of the resource.
             data: The data to update the resource with.
-
         Returns:
             The update data.
         """
@@ -169,7 +160,6 @@ class ActiveCampaignAPI(BaseAPI):
     def delete_resource(self, resource_name: str,
                         resource_id: typing.Optional[int]) -> None:
         """Delete the given resource.
-
         Args:
             resource_name: Name of the resource.
             resource_id: The id of the object.
@@ -205,8 +195,6 @@ class ActiveCampaignAPI(BaseAPI):
 
             # query_string[:-1] to remove the last '&'
             query_string = query_string[:-1]
-            else:
-                querry_string=''
 
         return query_string
 
@@ -219,12 +207,10 @@ class ActiveCampaignAPI(BaseAPI):
         query_params: typing.Optional[dict] = None,
     ) -> str:
         """Prepare the url path.
-
         Args:
             resource_name: The resource being accessed
             resource_id: The id of the resource. Defaults to None.
             query_params: the key value pairs for the query params.
-
         Returns:
             The request path.
         """
