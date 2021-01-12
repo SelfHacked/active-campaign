@@ -205,6 +205,8 @@ class ActiveCampaignAPI(BaseAPI):
 
             # query_string[:-1] to remove the last '&'
             query_string = query_string[:-1]
+            else:
+                querry_string=''
 
         return query_string
 
