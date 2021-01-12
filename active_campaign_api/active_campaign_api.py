@@ -77,6 +77,11 @@ class ActiveCampaignAPI(BaseAPI):
         total = 0
         query_params = query_params or {}
 
+        resource_key_in_response = resource_name
+        if resource_id and nested_resource_name:
+            # We want the list of nested_resource_name
+            resource_key_in_response = nested_resource_name
+
         while offset <= total:
             query_params.update({'limit': limit, 'offset': offset})
             path = self._prepare_path(
@@ -89,12 +94,12 @@ class ActiveCampaignAPI(BaseAPI):
             response = self._send_request(method=HttpMethod.GET, path=path)
             response.raise_for_status()
 
-            for resource_data in response.json()[resource_name]:
+            for resource_data in response.json()[resource_key_in_response]:
                 yield resource_data
 
             # In here we are getting the actual total of results
             # Not too clean because we are getting the same value
-            # over and over again, but is better that
+            # over and over again, but we haven't found a cleaner way
             total = int(response.json()['meta']['total'])
             offset += limit
 
