@@ -157,6 +157,28 @@ class ActiveCampaignAPI(BaseAPI):
         response = self._send_request(method=HttpMethod.DELETE, path=path)
         response.raise_for_status()
 
+    def _get_query_string(
+        cls: typing.Type,
+        query_params: typing.Optional[dict] = None,
+    ) -> str:
+        """Get the url string representation of query_params
+        Args:
+            query_params: dict
+                the key value pairs for the query params.
+        Returns:
+            query_string: str
+                url string representation of query_params
+        """
+        query_string = '?'
+        query_params = query_params or {}
+
+        for key, value in query_params.items():
+            value = urllib.parse.quote(str(value))
+            key = urllib.parse.quote(str(key))
+            query_string = f'{query_string}{key}={value}&'
+
+        return query_string
+
     @classmethod
     def _prepare_path(
             cls: typing.Type,
@@ -169,6 +191,7 @@ class ActiveCampaignAPI(BaseAPI):
         Args:
             resource_name: The resource being accessed
             resource_id: The id of the resource. Defaults to None.
+            query_params: the key value pairs for the query params.
 
         Returns:
             The request path.
