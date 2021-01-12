@@ -22,7 +22,10 @@ def require_setting(name: str) -> typing.Any:
 def singular_form(resource_name: str) -> str:
     """Gets the singular form of the resource_name,
     that is, removing the s at the end of it"""
-    return resource_name[:-1]
+    if resource_name[-1] == 's':
+        return resource_name[:-1]
+    else:
+        return resource_name
 
 
 class ActiveCampaignAPI(BaseAPI):
@@ -89,6 +92,9 @@ class ActiveCampaignAPI(BaseAPI):
             for resource_data in response.json()[resource_name]:
                 yield resource_data
 
+            # In here we are getting the actual total of results
+            # Not too clean because we are getting the same value
+            # over and over again, but is better that
             total = int(response.json()['meta']['total'])
             offset += limit
 
