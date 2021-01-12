@@ -70,6 +70,9 @@ class ActiveCampaignAPI(BaseAPI):
             A single resource from the server.
         """
         offset = 0
+        # limit = 100 is the maximum amount allowed in ActiveCampaign
+        # API v3. If you make a request with limit=1000 as query param,
+        # you will get back only 100 results
         limit = 100
         total = 0
         query_params = query_params or {}
