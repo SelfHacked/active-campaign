@@ -48,7 +48,7 @@ class ActiveCampaignAPI(BaseAPI):
         """List all the recources of the given name.
 
         Args:
-            resource_name: The name of the resource to retch
+            resource_name: The name of the resource to fetch
             query_params: the key value pairs for the query params.
 
         Yields:
@@ -92,7 +92,7 @@ class ActiveCampaignAPI(BaseAPI):
                 The name of the nested resource to fetch
 
         Yields:
-            A single resource from the server.
+            A single nested_resource from the server.
         """
         offset = 0
         limit = 100

@@ -122,6 +122,37 @@ class Resource(abc.ABC):
         resource._created = True
         return resource
 
+    @classmethod
+    def get_all_in(
+        cls: typing.Type,
+        parent_resource_name: str,
+        parent_resource_id: int,
+
+    ) -> 'Resource':
+        """Get all instances of this resource inside of the
+        parent_resource_name with the given parent_resource_id.
+
+        Args:
+            parent_resource_name: str
+                The name of the parent resource
+            resource_id: int
+                The id of the parent recource
+
+        Yields:
+            One recource at a time
+        """
+        data_list = ActiveCampaignAPI().list_nested_resources(
+            parent_resource_name,
+            parent_resource_id,
+            cls.resource_name(),
+        )
+
+        for data in data_list:
+            resource_data = cls._to_attribute_dict(data)
+            resource = cls(**resource_data)
+            resource._created = True
+            yield resource
+
     def delete(self) -> None:
         """Delete the resource from the server."""
         ActiveCampaignAPI().delete_resource(self.resource_name(), self.id)
