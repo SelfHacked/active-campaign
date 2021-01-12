@@ -10,16 +10,19 @@ from .base_api import BaseAPI, HttpMethod
 
 def require_setting(name: str) -> typing.Any:
     """Check for setting attribute, rise error is does not exist."""
-
     value = getattr(settings, name)
-
     if not value:
         raise RuntimeError(
             f'{name} django setting is not set properly, '
             f'current value: "{value}".',
         )
-
     return value
+
+
+def singular_form(resource_name: str) -> str:
+    """Gets the singular form of the resource_name,
+    that is, removing the s at the end of it"""
+    return resource_name[:-1]
 
 
 class ActiveCampaignAPI(BaseAPI):
@@ -89,8 +92,6 @@ class ActiveCampaignAPI(BaseAPI):
             total = int(response.json()['meta']['total'])
             offset += limit
 
-        return response.json()[resource_name]
-
     def get_resource(
             self,
             resource_name: str,
@@ -108,7 +109,7 @@ class ActiveCampaignAPI(BaseAPI):
         path = self._prepare_path(resource_name, resource_id)
         response = self._send_request(method=HttpMethod.GET, path=path)
         response.raise_for_status()
-        return response.json()[resource_name[:-1]]
+        return response.json()[singular_form(resource_name)]
 
     def create_resource(self, resource_name: str, data: dict) -> dict:
         """Create a resource with the given data.
@@ -122,7 +123,7 @@ class ActiveCampaignAPI(BaseAPI):
         """
         path = self._prepare_path(resource_name)
         payload = {
-            resource_name[:-1]: data,
+            singular_form(resource_name): data,
         }
 
         resp = self._send_request(
@@ -131,7 +132,7 @@ class ActiveCampaignAPI(BaseAPI):
             data=json.dumps(payload),
         )
         resp.raise_for_status()
-        return resp.json()[resource_name[:-1]]
+        return resp.json()[singular_form(resource_name)]
 
     def update_resource(
             self,
@@ -151,7 +152,7 @@ class ActiveCampaignAPI(BaseAPI):
         """
         path = self._prepare_path(resource_name, resource_id)
         payload = {
-            resource_name[:-1]: data,
+            singular_form(resource_name): data,
         }
 
         resp = self._send_request(
@@ -160,7 +161,7 @@ class ActiveCampaignAPI(BaseAPI):
             data=json.dumps(payload),
         )
         resp.raise_for_status()
-        return resp.json()[resource_name[:-1]]
+        return resp.json()[singular_form(resource_name)]
 
     def delete_resource(self, resource_name: str,
                         resource_id: typing.Optional[int]) -> None:
