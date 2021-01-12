@@ -81,10 +81,10 @@ class Resource(abc.ABC):
         Args:
             filters: dict
                 key value pairs to filter by
+            parent_resource_id: typing.Optional[int]
+                The id of the parent recource
             parent_resource_name: typing.Optional[str]
                 The name of the parent resource
-            resource_id: typing.Optional[int]
-                The id of the parent recource
 
         Yields:
             One recource at a time matching the filters.
