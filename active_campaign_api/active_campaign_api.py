@@ -60,7 +60,7 @@ class ActiveCampaignAPI(BaseAPI):
         query_params = query_params or {}
 
         while offset <= total:
-            query_params.update({'limit': 100, 'offset': offset})
+            query_params.update({'limit': limit, 'offset': offset})
             path = self._prepare_path(resource_name, query_params=query_params)
 
             response = self._send_request(method=HttpMethod.GET, path=path)
@@ -95,7 +95,12 @@ class ActiveCampaignAPI(BaseAPI):
             A single nested_resource from the server.
         """
         offset = 0
-        limit = 100
+        # We currently have a total of 587 tags on ActiveCampaing.
+        # This function is going to be used mainly for getting the
+        # contactTags of a contact, so to minimize the amount of
+        # requests, let's get them all in a single request instead
+        # of fething them in batches of size 100
+        limit = 587
         total = 0
         base_path = f'{resource_name}/{resource_id}/{nested_resource_name}'
 
