@@ -187,16 +187,21 @@ class ActiveCampaignAPI(BaseAPI):
             query_string: str
                 url string representation of query_params
         """
-        query_string = '?'
-        query_params = query_params or {}
 
-        for key, value in query_params.items():
-            value = urllib.parse.quote(str(value))
-            key = urllib.parse.quote(str(key))
-            query_string = f'{query_string}{key}={value}&'
+        if query_params:
+            query_string = ''
+        else:
+            query_string = '?'
+            query_params = query_params or {}
 
-        # query_string[:-1] to remove the last '&'
-        query_string = query_string[:-1]
+            for key, value in query_params.items():
+                value = urllib.parse.quote(str(value))
+                key = urllib.parse.quote(str(key))
+                query_string = f'{query_string}{key}={value}&'
+
+            # query_string[:-1] to remove the last '&'
+            query_string = query_string[:-1]
+
         return query_string
 
     @classmethod
