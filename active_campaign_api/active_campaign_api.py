@@ -43,13 +43,25 @@ class ActiveCampaignAPI(BaseAPI):
     def list_resources(
             self,
             resource_name: str,
+            resource_id: typing.Optional[int] = None,
+            nested_resource_name: typing.Optional[str] = None,
             query_params: typing.Optional[dict] = None,
     ) -> typing.Generator[dict, None, None]:
-        """List all the recources of the given name.
+        """
+        List all the recources of the given name.
+        If resource_id and nested_resource_name are passed,
+        it lists all the nested_resources of the given name,
+        that belong to the resource_name with given resource_id
 
         Args:
-            resource_name: The name of the resource to retch
-            query_params: the key value pairs for the query params.
+            resource_name: str
+                The name of the resource to fetch
+            resource_id: typing.Optional[int]
+                The id of the resource
+            nested_resource_name: typing.Optional[str]
+                The name of the nested resource to fetch
+            query_params: typing.Optional[dict]
+                the key value pairs for the query params.
 
         Yields:
             A single resource from the server.
@@ -60,49 +72,13 @@ class ActiveCampaignAPI(BaseAPI):
         query_params = query_params or {}
 
         while offset <= total:
-            query_params.update({'limit': 100, 'offset': offset})
-            path = self._prepare_path(resource_name, query_params=query_params)
-
-            response = self._send_request(method=HttpMethod.GET, path=path)
-            response.raise_for_status()
-
-            for resource_data in response.json()[resource_name]:
-                yield resource_data
-
-            total = int(response.json()['meta']['total'])
-            offset += limit
-
-        return response.json()[resource_name]
-
-    def list_nested_resources(
-            self,
-            resource_name: str,
-            resource_id: int,
-            nested_resource_name: str,
-    ) -> typing.Generator[dict, None, None]:
-        """List all the nested_resources of the given name,
-        that belong to the resource of given name and if
-
-        Args:
-            resource_name:
-                The name of parent resource
-            resource_id:
-                The id of the parent resource
-            nested_resource_name:
-                The name of the nested resource to fetch
-
-        Yields:
-            A single resource from the server.
-        """
-        offset = 0
-        limit = 100
-        total = 0
-        base_path = f'{resource_name}/{resource_id}/{nested_resource_name}'
-
-        while offset <= total:
-            query_params = {'limit': limit, 'offset': offset}
-            query_string = self._get_query_string(query_params=query_params)
-            path = f'{base_path}{query_string}'
+            query_params.update({'limit': limit, 'offset': offset})
+            path = self._prepare_path(
+                resource_name,
+                resource_id=resource_id,
+                nested_resource_name=nested_resource_name,
+                query_params=query_params
+            )
 
             response = self._send_request(method=HttpMethod.GET, path=path)
             response.raise_for_status()
@@ -225,10 +201,11 @@ class ActiveCampaignAPI(BaseAPI):
 
     @classmethod
     def _prepare_path(
-            cls: typing.Type,
-            resource_name: str,
-            resource_id: typing.Optional[int] = None,
-            query_params: typing.Optional[dict] = None,
+        cls: typing.Type,
+        resource_name: str,
+        resource_id: typing.Optional[int] = None,
+        nested_resource_name: typing.Optional[str] = None,
+        query_params: typing.Optional[dict] = None,
     ) -> str:
         """Prepare the url path.
 
@@ -247,6 +224,8 @@ class ActiveCampaignAPI(BaseAPI):
 
         if resource_id is not None:
             path = f'{path}/{resource_id}'
+            if nested_resource_name is not None:
+                path = f'{path}/{nested_resource_name}'
 
         path = f'{path}{query_string}'
 
