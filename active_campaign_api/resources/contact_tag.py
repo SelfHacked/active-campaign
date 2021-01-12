@@ -46,3 +46,9 @@ class ContactTag(Resource):
             'tag': 'tag',
             'contact': 'contact',
         }
+
+    @classmethod
+    def all_in_contact(cls: typing.Type, contact_id: int):
+        """Get all ContactTags associated to contact with that id"""
+        for contact_tag in cls.get_all_in("contacts", contact_id):
+            yield contact_tag

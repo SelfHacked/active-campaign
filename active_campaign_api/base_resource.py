@@ -127,8 +127,7 @@ class Resource(abc.ABC):
         cls: typing.Type,
         parent_resource_name: str,
         parent_resource_id: int,
-
-    ) -> 'Resource':
+    ) -> typing.Generator:
         """Get all instances of this resource inside of the
         parent_resource_name with the given parent_resource_id.
 
