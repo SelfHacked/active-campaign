@@ -74,6 +74,47 @@ class ActiveCampaignAPI(BaseAPI):
 
         return response.json()[resource_name]
 
+    def list_nested_resources(
+            self,
+            resource_name: str,
+            resource_id: int,
+            nested_resource_name: str,
+    ) -> typing.Generator[dict, None, None]:
+        """List all the nested_resources of the given name,
+        that belong to the resource of given name and if
+
+        Args:
+            resource_name:
+                The name of parent resource
+            resource_id:
+                The id of the parent resource
+            nested_resource_name:
+                The name of the nested resource to fetch
+
+        Yields:
+            A single resource from the server.
+        """
+        offset = 0
+        limit = 100
+        total = 0
+        base_path = f'{resource_name}/{resource_id}/{nested_resource_name}'
+
+        while offset <= total:
+            query_params = {'limit': limit, 'offset': offset}
+            query_string = self._get_query_string(query_params=query_params)
+            path = f'{base_path}{query_string}'
+
+            response = self._send_request(method=HttpMethod.GET, path=path)
+            response.raise_for_status()
+
+            for resource_data in response.json()[resource_name]:
+                yield resource_data
+
+            total = int(response.json()['meta']['total'])
+            offset += limit
+
+        return response.json()[resource_name]
+
     def get_resource(
             self,
             resource_name: str,
@@ -199,7 +240,9 @@ class ActiveCampaignAPI(BaseAPI):
         Returns:
             The request path.
         """
-        query_string = cls._get_query_string(query_params)
+        query_string = cls._get_query_string(
+            query_params=query_params
+        )
         path = f'/{resource_name}'
 
         if resource_id is not None:
