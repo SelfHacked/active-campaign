@@ -49,7 +49,7 @@ class ActiveCampaignAPI(BaseAPI):
             resource_id: typing.Optional[int] = None,
             nested_resource_name: typing.Optional[str] = None,
             query_params: typing.Optional[dict] = None,
-    ) -> typing.Generator[dict, None, typing.List[dict]]:
+    ) -> typing.Generator[dict, None, None]:
         """
         List all the recources of the given name.
         If resource_id and nested_resource_name are passed,
