@@ -72,19 +72,37 @@ class Resource(abc.ABC):
     @classmethod
     def filter(
         cls: typing.Type,
-        filters: dict
+        filters: dict,
+        parent_resource_id: typing.Optional[int] = None,
+        parent_resource_name: typing.Optional[str] = None,
     ) -> typing.Generator:  # noqa: A003
         """Filter the list of resources with the given filters.
 
         Args:
-            filters: key value pairs to filter by
+            filters: dict
+                key value pairs to filter by
+            parent_resource_name: typing.Optional[str]
+                The name of the parent resource
+            resource_id: typing.Optional[int]
+                The id of the parent recource
 
         Yields:
             One recource at a time matching the filters.
         """
+        # Default and most common usage
+        resource_name = cls.resource_name()
+        nested_resource_name = None
+
+        if parent_resource_id and parent_resource_name:
+            # We want to list nested_resource_name
+            resource_name = parent_resource_name
+            nested_resource_name = cls.resource_name()
+
         data_list = ActiveCampaignAPI().list_resources(
-            cls.resource_name(),
-            filters,
+            resource_name=resource_name,
+            resource_id=parent_resource_id,
+            nested_resource_name=nested_resource_name,
+            query_params=filters,
         )
 
         for data in data_list:
@@ -101,6 +119,31 @@ class Resource(abc.ABC):
             One recource at a time.
         """
         for resource in cls.filter({}):
+            yield resource
+
+    @classmethod
+    def get_all_in(
+        cls: typing.Type,
+        parent_resource_name: str,
+        parent_resource_id: int,
+    ) -> typing.Generator:
+        """Get all instances of this resource inside of the
+        parent_resource_name with the given parent_resource_id.
+
+        Args:
+            parent_resource_name: str
+                The name of the parent resource
+            resource_id: int
+                The id of the parent recource
+
+        Yields:
+            One recource at a time
+        """
+        for resource in cls.filter(
+            {},
+            parent_resource_id=parent_resource_id,
+            parent_resource_name=parent_resource_name,
+        ):
             yield resource
 
     @classmethod
@@ -121,36 +164,6 @@ class Resource(abc.ABC):
         resource = cls(**resource_data)
         resource._created = True
         return resource
-
-    @classmethod
-    def get_all_in(
-        cls: typing.Type,
-        parent_resource_name: str,
-        parent_resource_id: int,
-    ) -> typing.Generator:
-        """Get all instances of this resource inside of the
-        parent_resource_name with the given parent_resource_id.
-
-        Args:
-            parent_resource_name: str
-                The name of the parent resource
-            resource_id: int
-                The id of the parent recource
-
-        Yields:
-            One recource at a time
-        """
-        data_list = ActiveCampaignAPI().list_nested_resources(
-            parent_resource_name,
-            parent_resource_id,
-            cls.resource_name(),
-        )
-
-        for data in data_list:
-            resource_data = cls._to_attribute_dict(data)
-            resource = cls(**resource_data)
-            resource._created = True
-            yield resource
 
     def delete(self) -> None:
         """Delete the resource from the server."""
