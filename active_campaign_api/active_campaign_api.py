@@ -198,7 +198,7 @@ class ActiveCampaignAPI(BaseAPI):
                 url string representation of query_params
         """
 
-        if query_params:
+        if not query_params:
             query_string = ''
         else:
             query_string = '?'
