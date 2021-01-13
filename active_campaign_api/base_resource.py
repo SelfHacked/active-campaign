@@ -82,7 +82,7 @@ class Resource(abc.ABC):
             filters: dict
                 key value pairs to filter by
             parent_resource_id: typing.Optional[int]
-                The id of the parent recource
+                The id of the parent resource
             parent_resource_name: typing.Optional[str]
                 The name of the parent resource
 
