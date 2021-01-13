@@ -1,4 +1,4 @@
-""" something """
+"""MarketingList resource for Active Campaign """
 
 import typing
 from django.http import Http404
