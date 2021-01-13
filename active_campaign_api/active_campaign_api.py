@@ -100,8 +100,13 @@ class ActiveCampaignAPI(BaseAPI):
             # In here we are getting the actual total of results
             # Not too clean because we are getting the same value
             # over and over again, but we haven't found a cleaner way
-            total = int(response.json()['meta']['total'])
-            offset += limit
+            try:
+                total = int(response.json()['meta']['total'])
+                offset += limit
+            except KeyError:
+                # On requests of the form 'contacts/:id/contactTag/
+                # there is not 'meta' nor 'total' attributes on the response
+                return
 
     def get_resource(
             self,
