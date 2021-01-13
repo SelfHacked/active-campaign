@@ -1,4 +1,4 @@
-""" Contact resource for ActiveCampaign """
+"""Contact resource for ActiveCampaign"""
 
 import typing
 from django.http import Http404

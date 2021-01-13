@@ -1,4 +1,4 @@
-""" ContactList resource for ActiveCampaign """
+"""ContactList resource for ActiveCampaign"""
 
 import typing
 from ..base_resource import Resource

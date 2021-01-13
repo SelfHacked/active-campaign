@@ -1,4 +1,4 @@
-""" ContactTag resource for ActiveCampaign """
+"""ContactTag resource for ActiveCampaign"""
 
 import typing
 from ..base_resource import Resource
