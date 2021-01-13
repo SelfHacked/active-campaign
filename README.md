@@ -18,7 +18,7 @@ from active_campaign_api import Contact, ContactList, ContactTag, Tag, Marketing
 
 ## Contact
 
-#### Create or get
+#### Create a contact
 
 ```
 contact = Contact(email)
@@ -68,6 +68,12 @@ marketing_list = MarketingList.find('SD: Marketing List')
 
 ```
 ContactTag(tag.id, contact.id).save()
+```
+
+#### Get all contact tags associated to a Contact
+
+```
+ContactTag.all_in_contact(contact.id)
 ```
 
 ## ContactList
