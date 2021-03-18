@@ -35,8 +35,13 @@ class ActiveCampaignAPI(BaseAPI):
         """Initialize active campaign."""
         MARKETING_CAMPAIGN_KEY = require_setting('MARKETING_CAMPAIGN_KEY')
         MARKETING_CAMPAIGN_URL = require_setting('MARKETING_CAMPAIGN_URL')
+        MARKETING_CAMPAIGN_REQUEST_TIMEOUT = getattr(
+            settings,
+            'MARKETING_CAMPAIGN_REQUEST_TIMEOUT',
+            None,
+        )
 
-        super().__init__(MARKETING_CAMPAIGN_URL)
+        super().__init__(MARKETING_CAMPAIGN_URL, MARKETING_CAMPAIGN_REQUEST_TIMEOUT)
         self.session.headers.update({
             'Api-Token': MARKETING_CAMPAIGN_KEY,
         })
