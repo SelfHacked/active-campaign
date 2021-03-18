@@ -42,7 +42,7 @@ class BaseAPI:
     class Error(BaseException):
         """Generic error class."""
 
-    def __init__(self, root_url: str, request_timeout: int = None) -> None:
+    def __init__(self, root_url: str, request_timeout: int = 10) -> None:
         """Initialize requests session."""
         self.root_url = root_url
         self.request_timeout = request_timeout
