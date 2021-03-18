@@ -68,6 +68,10 @@ class BaseAPI:
         )
         prepared_req = self.session.prepare_request(req)
 
-        resp = self.session.send(prepared_req, timeout=self.request_timeout)
+        resp = self.session.send(
+            prepared_req,
+            timeout=(3.05, self.request_timeout),
+            # https://requests.readthedocs.io/en/master/user/advanced/#timeouts
+        )
         resp.raise_for_status()
         return resp
