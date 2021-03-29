@@ -5,7 +5,11 @@ from ..base_resource import Resource
 
 
 class CustomFieldValue(Resource):
-    """An ActiveCampaign CustomFieldValue."""
+    """An ActiveCampaign CustomFieldValue. Allows to:
+    - Create a CustomFieldValue
+    - Update a CustomFieldValue
+    - Delete a CustomFieldValue
+    """
 
     def __init__(
             self,

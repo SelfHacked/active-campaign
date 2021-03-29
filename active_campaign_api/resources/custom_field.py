@@ -6,7 +6,11 @@ from ..base_resource import Resource
 
 
 class CustomField(Resource):
-    """An ActiveCampaign CustomField for Contact."""
+    """An ActiveCampaign CustomField. Allows to:
+     - Create a CustomField
+     - Find a CustomField by the title
+     - Delete a CustomField
+    """
 
     def __init__(
             self,
