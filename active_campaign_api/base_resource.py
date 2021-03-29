@@ -8,6 +8,18 @@ from .active_campaign_api import ActiveCampaignAPI
 class Resource(abc.ABC):
     """An ActiveCampaign API resource."""
 
+    def __init__(self, **kwargs) -> None:
+        """Initialize the Resource."""
+        self._id = kwargs.pop('id', None) or kwargs.pop('_id', None)
+
+        # Whether the resource has been saved to remote.
+        self._created = self._id is not None
+
+    @property
+    def id(self) -> typing.Optional[int]:  # noqa: A003
+        """Get id of the resource."""
+        return self._id
+
     @staticmethod
     @abc.abstractmethod
     def resource_name() -> str:
@@ -58,18 +70,6 @@ class Resource(abc.ABC):
             for fieldname, value in data.items()
             if field_attribute_map.get(fieldname) is not None
         }
-
-    def __init__(self, **kwargs) -> None:
-        """Initialize the Resource."""
-        self._id = kwargs.pop('id', None) or kwargs.pop('_id', None)
-
-        # Whether the resource has been saved to remote.
-        self._created = self._id is not None
-
-    @property
-    def id(self) -> typing.Optional[int]:  # noqa: A003
-        """Get id of the resource."""
-        return self._id
 
     @classmethod
     def filter(
