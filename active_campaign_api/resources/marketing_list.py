@@ -51,7 +51,7 @@ class MarketingList(Resource):
 
     @classmethod
     def find(cls: typing.Type, name: str) -> 'MarketingList':
-        """Get the list first list with the given name.
+        """Get the list with the given name.
 
         Args:
             name: The name of the list to find
