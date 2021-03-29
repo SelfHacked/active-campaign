@@ -21,7 +21,7 @@ class Resource(abc.ABC):
         raise NotImplementedError()
 
     @classmethod
-    def _to_api_payload(cls: typing.Type, data: dict) -> dict:
+    def _to_api_payload(cls, data: dict) -> dict:
         """Convert a dict containing attribute: value to APIField: value.
 
         Args:
@@ -41,7 +41,7 @@ class Resource(abc.ABC):
         return result
 
     @classmethod
-    def _to_attribute_dict(cls: typing.Type, data: dict) -> dict:
+    def _to_attribute_dict(cls, data: dict) -> dict:
         """Convert API payload into attribute dict.
 
         Args:
@@ -112,7 +112,7 @@ class Resource(abc.ABC):
             yield resource
 
     @classmethod
-    def all(cls: typing.Type) -> typing.Generator:  # noqa: A003
+    def all(cls) -> typing.Generator:  # noqa: A003
         """Generate all the resources of this type.
 
         Yields:
@@ -123,7 +123,7 @@ class Resource(abc.ABC):
 
     @classmethod
     def get_all_in(
-        cls: typing.Type,
+        cls,
         parent_resource_name: str,
         parent_resource_id: int,
     ) -> typing.Generator:
@@ -147,7 +147,7 @@ class Resource(abc.ABC):
             yield resource
 
     @classmethod
-    def get(cls: typing.Type, resource_id: typing.Optional[int]) -> 'Resource':
+    def get(cls, resource_id: typing.Optional[int]) -> 'Resource':
         """Get the recource with the given id.
 
         Args:
