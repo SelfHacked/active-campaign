@@ -61,8 +61,10 @@ class Resource(abc.ABC):
 
     def __init__(self, **kwargs) -> None:
         """Initialize the Resource."""
-        self._created = False  # whether the resource has been saved to remote.
         self._id = kwargs.pop('id', None) or kwargs.pop('_id', None)
+
+        # Whether the resource has been saved to remote.
+        self._created = self._id is not None
 
     @property
     def id(self) -> typing.Optional[int]:  # noqa: A003
