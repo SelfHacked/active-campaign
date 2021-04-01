@@ -15,7 +15,7 @@ class CustomField(Resource):
     def __init__(
             self,
             title: str,
-            field_type: str,
+            type: str,
             **kwargs: typing.Dict,
     ) -> None:
         """Initialize the CustomField.
@@ -24,13 +24,13 @@ class CustomField(Resource):
             title: str
                 Title of the CustomField being created
 
-            field_type: str
+            type: str
                 Possible Values: dropdown, hidden, checkbox, date,
                 text, datetime, textarea, NULL, listbox, radio
         """
         super().__init__(**kwargs)
         self.title = title
-        self.type = field_type
+        self.type = type
 
     @staticmethod
     def resource_name() -> str:
