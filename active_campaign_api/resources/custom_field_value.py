@@ -39,7 +39,7 @@ class CustomFieldValue(Resource):
     @staticmethod
     def resource_name() -> str:
         """Get the resource name."""
-        return 'fieldValues '
+        return 'fieldValues'
 
     @staticmethod
     def map_field_name_to_attribute() -> typing.Dict:
