@@ -17,11 +17,11 @@ class Tag(Resource):
     """
 
     def __init__(
-            self,
-            tag: str,
-            tag_type: str,
-            description: typing.Optional[str] = '',
-            **kwargs,
+        self,
+        tag: str,
+        tag_type: str,
+        description: typing.Optional[str] = "",
+        **kwargs,
     ) -> None:
         """Initialize the tag.
 
@@ -38,18 +38,18 @@ class Tag(Resource):
     @staticmethod
     def resource_name() -> str:
         """Get the resource name."""
-        return 'tags'
+        return "tags"
 
     @staticmethod
     def map_field_name_to_attribute() -> dict:  # noqa: D102
         return {
-            'tag': 'tag',
-            'tagType': 'tag_type',
-            'description': 'description',
+            "tag": "tag",
+            "tagType": "tag_type",
+            "description": "description",
         }
 
     @classmethod
-    def find(cls: typing.Type, tag_name: str) -> 'Tag':
+    def find(cls: typing.Type, tag_name: str) -> "Tag":
         """Get the first tag with the given name.
 
         Args:
@@ -58,10 +58,10 @@ class Tag(Resource):
         Returns:
             The tag with the given name.
         """
-        for tag in cls.filter({'search': tag_name}):
+        for tag in cls.filter({"search": tag_name}):
             return tag
         raise Http404
 
     def __repr__(self) -> str:
         """Generate internal representation."""
-        return f'<Tag {self.tag}>'
+        return f"<Tag {self.tag}>"

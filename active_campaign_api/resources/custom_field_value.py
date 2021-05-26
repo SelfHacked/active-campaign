@@ -12,11 +12,11 @@ class CustomFieldValue(Resource):
     """
 
     def __init__(
-            self,
-            contact_id: str,
-            custom_field_id: str,
-            value,
-            **kwargs: typing.Dict,
+        self,
+        contact_id: str,
+        custom_field_id: str,
+        value,
+        **kwargs: typing.Dict,
     ) -> None:
         """Initialize the CustomFieldValue.
 
@@ -39,13 +39,13 @@ class CustomFieldValue(Resource):
     @staticmethod
     def resource_name() -> str:
         """Get the resource name."""
-        return 'fieldValues'
+        return "fieldValues"
 
     @staticmethod
     def map_field_name_to_attribute() -> typing.Dict:
         """Serialize the CustomFieldValue."""
         return {
-            'contact': 'contact_id',
-            'field': 'field_id',
-            'value': 'value'
+            "contact": "contact_id",
+            "field": "field_id",
+            "value": "value",
         }

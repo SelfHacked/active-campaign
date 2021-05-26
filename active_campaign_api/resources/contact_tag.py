@@ -37,14 +37,14 @@ class ContactTag(Resource):
         Returns:
             The name of the resource
         """
-        return 'contactTags'
+        return "contactTags"
 
     @staticmethod
     def map_field_name_to_attribute() -> typing.Dict:
         """Map field names to attributes."""
         return {
-            'tag': 'tag',
-            'contact': 'contact',
+            "tag": "tag",
+            "contact": "contact",
         }
 
     @classmethod

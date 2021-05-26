@@ -29,18 +29,18 @@ class Contact(Resource):
         Returns:
             The name of the resource
         """
-        return 'contacts'
+        return "contacts"
 
     @staticmethod
     def map_field_name_to_attribute() -> typing.Dict:
         """Map field names to attributes."""
         return {
-            'email': 'email',
+            "email": "email",
         }
 
     @classmethod
-    def find(cls: typing.Type, email: str) -> 'Contact':
+    def find(cls: typing.Type, email: str) -> "Contact":
         """Find contact by email."""
-        for contact in cls.filter({'email': email}):
+        for contact in cls.filter({"email": email}):
             return contact
         raise Http404

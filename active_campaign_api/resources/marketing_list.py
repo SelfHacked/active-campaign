@@ -9,12 +9,12 @@ class MarketingList(Resource):
     """An ActiveCampaign contact list."""
 
     def __init__(
-            self,
-            name: str,
-            stringid: str,
-            sender_url: str,
-            sender_reminder: str,
-            **kwargs: typing.Dict,
+        self,
+        name: str,
+        stringid: str,
+        sender_url: str,
+        sender_reminder: str,
+        **kwargs: typing.Dict,
     ) -> None:
         """Initialize the marketing list.
 
@@ -37,20 +37,20 @@ class MarketingList(Resource):
     @staticmethod
     def resource_name() -> str:
         """Get the resource name."""
-        return 'lists'
+        return "lists"
 
     @staticmethod
     def map_field_name_to_attribute() -> typing.Dict:
         """Serialize the list."""
         return {
-            'name': 'name',
-            'stringid': 'stringid',
-            'sender_url': 'sender_url',
-            'sender_reminder': 'sender_reminder',
+            "name": "name",
+            "stringid": "stringid",
+            "sender_url": "sender_url",
+            "sender_reminder": "sender_reminder",
         }
 
     @classmethod
-    def find(cls: typing.Type, name: str) -> 'MarketingList':
+    def find(cls: typing.Type, name: str) -> "MarketingList":
         """Get the list with the given name.
 
         Args:
@@ -59,7 +59,7 @@ class MarketingList(Resource):
         Returns:
             The list with the given name.
         """
-        for lst in cls.filter({'filters[name]': name}):
+        for lst in cls.filter({"filters[name]": name}):
             return lst
         raise Http404
 

@@ -10,10 +10,10 @@ class AutoNameEnum(enum.Enum):
 
     @staticmethod
     def _generate_next_value_(
-            name: str,
-            _start: int,
-            _count: int,
-            _last_values: typing.List,
+        name: str,
+        _start: int,
+        _count: int,
+        _last_values: typing.List,
     ) -> str:
         """Set the value of the member equal to it name.
 
@@ -47,22 +47,21 @@ class BaseAPI:
         self.root_url = root_url
         self.request_timeout = request_timeout
         self.session = requests.Session()
-        self.session.headers.update({
-            'Content-Type': 'application/json',
-        })
+        self.session.headers.update({"Content-Type": "application/json"})
 
     def _send_request(
-            self, *,
-            method: HttpMethod,
-            path: str,
-            data: typing.Union[str, bytes] = None,
-            headers: typing.Dict[str, str] = None,
+        self,
+        *,
+        method: HttpMethod,
+        path: str,
+        data: typing.Union[str, bytes] = None,
+        headers: typing.Dict[str, str] = None,
     ) -> requests.Response:
         """Send request function."""
 
         req = requests.Request(
             method=method.value,
-            url=f'{self.root_url}{path}',
+            url=f"{self.root_url}{path}",
             headers=headers,
             data=data,
         )

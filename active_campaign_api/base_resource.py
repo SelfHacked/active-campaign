@@ -10,7 +10,7 @@ class Resource(abc.ABC):
 
     def __init__(self, **kwargs) -> None:
         """Initialize the Resource."""
-        self._id = kwargs.pop('id', None) or kwargs.pop('_id', None)
+        self._id = kwargs.pop("id", None) or kwargs.pop("_id", None)
 
         # Whether the resource has been saved to remote.
         self._created = self._id is not None
@@ -62,7 +62,7 @@ class Resource(abc.ABC):
         Returns:
             The converted dict.
         """
-        field_attribute_map = {'id': '_id'}
+        field_attribute_map = {"id": "_id"}
         field_attribute_map.update(cls.map_field_name_to_attribute())
 
         return {
@@ -149,7 +149,7 @@ class Resource(abc.ABC):
             yield resource
 
     @classmethod
-    def get(cls, resource_id: typing.Optional[int]) -> 'Resource':
+    def get(cls, resource_id: typing.Optional[int]) -> "Resource":
         """Get the recource with the given id.
 
         Args:
@@ -195,8 +195,9 @@ class Resource(abc.ABC):
         """Create the resource."""
         data = self.serialize_data()
         self._id = ActiveCampaignAPI().create_resource(
-            self.resource_name(), data=data,
-        )['id']
+            self.resource_name(),
+            data=data,
+        )["id"]
         self._created = True
 
     def _update(self) -> None:

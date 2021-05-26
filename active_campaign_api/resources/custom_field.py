@@ -7,16 +7,16 @@ from ..base_resource import Resource
 
 class CustomField(Resource):
     """An ActiveCampaign CustomField. Allows to:
-     - Create a CustomField
-     - Find a CustomField by the title
-     - Delete a CustomField
+    - Create a CustomField
+    - Find a CustomField by the title
+    - Delete a CustomField
     """
 
     def __init__(
-            self,
-            title: str,
-            type: str,
-            **kwargs: typing.Dict,
+        self,
+        title: str,
+        type: str,
+        **kwargs: typing.Dict,
     ) -> None:
         """Initialize the CustomField.
 
@@ -35,18 +35,18 @@ class CustomField(Resource):
     @staticmethod
     def resource_name() -> str:
         """Get the resource name."""
-        return 'fields'
+        return "fields"
 
     @staticmethod
     def map_field_name_to_attribute() -> typing.Dict:
         """Serialize the field."""
         return {
-            'title': 'title',
-            'type': 'type',
+            "title": "title",
+            "type": "type",
         }
 
     @classmethod
-    def find(cls, field_title: str) -> 'CustomField':
+    def find(cls, field_title: str) -> "CustomField":
         """Get the CustomField with the given title.
 
         Args:
