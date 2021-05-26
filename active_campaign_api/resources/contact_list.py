@@ -15,11 +15,11 @@ class ContactList(Resource):
     """
 
     def __init__(
-            self,
-            list_id: typing.Optional[int],
-            contact_id: typing.Optional[int],
-            status: typing.Optional[int],
-            **kwargs: typing.Dict,
+        self,
+        list_id: typing.Optional[int],
+        contact_id: typing.Optional[int],
+        status: typing.Optional[int],
+        **kwargs: typing.Dict,
     ) -> None:
         """Initialize the contact list.
 
@@ -40,13 +40,19 @@ class ContactList(Resource):
         Returns:
             The name of the resource
         """
-        return 'contactLists'
+        return "contactLists"
 
     @staticmethod
     def map_field_name_to_attribute() -> typing.Dict:
         """Map field names to attributes."""
         return {
-            'list': 'list_id',
-            'contact': 'contact_id',
-            'status': 'status',
+            "list": "list_id",
+            "contact": "contact_id",
+            "status": "status",
         }
+
+    @classmethod
+    def all_in_contact(cls, contact_id: int):
+        """Get all ContactLists associated to contact with that id"""
+        for contact_list in cls.get_all_in("contacts", contact_id):
+            yield contact_list
